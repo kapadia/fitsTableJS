@@ -1,0 +1,19 @@
+{
+ "name": "",
+ "version": "0.0.1",
+ "description": "",
+ "keywords": ["astronomy", "shazaam"],
+ "homepage": "astrojs.org",
+ "author": {
+ "name": "Amit Kapadia",
+ "email": "amit@zooniverse.org",
+ "url": "https://www.zooniverse.org/"
+ },
+ "files": ["lib/.js"],
+ "main": "lib/.js",
+ "repository": {
+ "type": "git",
+ "url": "git@github.com:kapadia/.git"
+ },
+ }
+
