@@ -30,11 +30,21 @@ Using an XMLHttpRequest, retrieve an array buffer or binary string of the FITS f
 
     // The header must be read first
     ft.readHeader();
-    
+
     // Then we may read the columns
     ft.readColumns();
-    
+
     // Access the data
+    console.log(ft.tableData);
+
+    // Column names are recorded as an array
+    console.log(ft.columnNames);
+
+    // Number of rows
+    console.log(ft.numberOfRows);
+
+    // You can read a single row at a time and access the data
+    ft.readColumn();
     console.log(ft.tableData);
 
 Notes for me
