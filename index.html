@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="FitsTableJS : JavaScript library for parsing FITS binary tables" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>FitsTableJS</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/kapadia/fitsTableJS">Fork Me on GitHub</a>
+
+          <h1 id="project_title">FitsTableJS</h1>
+          <h2 id="project_tagline">JavaScript library for parsing FITS binary tables</h2>
+
+          <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/kapadia/fitsTableJS/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/kapadia/fitsTableJS/tarball/master">Download this project as a tar.gz file</a>
+          </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>fitsTableJS</h1>
+
+<p>Yes, a JavaScript library for reading FITS Binary Tables :)</p>
+
+<h2>Dependencies</h2>
+
+<p>This library is dependent upon jDataView</p>
+
+<ul>
+<li><a href="https://github.com/vjeux/jDataView">https://github.com/vjeux/jDataView</a></li>
+</ul><h2>Installation</h2>
+
+<p>Include the dependent library and fitsTableJS</p>
+
+<pre><code>&lt;script src="path/to/jdataview.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+&lt;script src="path/to/fitsTable.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+</code></pre>
+
+<h2>Usage</h2>
+
+<p>Using an XMLHttpRequest, retrieve an array buffer or binary string of the FITS file.</p>
+
+<pre><code>var xhr = new XMLHttpRequest();
+xhr.open('GET', "url/to/shazaam.fits", true);
+xhr.responseType = 'arraybuffer';
+xhr.onload = function(e) {
+    var ft = new FitsTable(xhr.response);
+};
+xhr.send();
+
+// The header must be read first
+ft.readHeader();
+
+// Then we may read the columns
+ft.readColumns();
+
+// Access the data
+console.log(ft.data);
+
+// Column names are recorded as an array
+console.log(ft.columnNames);
+
+// Number of rows and columns
+console.log(ft.rows);
+console.log(ft.columns);
+
+// You can read a single row at a time and access the data
+ft.readColumn();
+console.log(ft.data);
+</code></pre>
+
+<h2>Notes for me</h2>
+
+<p>These are the fields that describe the columns and data format in the test data.</p>
+
+<ul>
+<li>TTYPE1  = 'flux    '</li>
+<li>TFORM1  = 'D       '</li>
+<li>TTYPE2  = 'best_fit'</li>
+<li>TFORM2  = 'D       '</li>
+<li>TTYPE3  = 'wavelength'</li>
+<li>TFORM3  = 'D       '</li>
+<li>TTYPE4  = 'and_mask'</li>
+<li>TFORM4  = 'J       '</li>
+<li>TTYPE5  = 'or_mask '</li>
+<li>TFORM5  = 'J       '</li>
+<li>TTYPE6  = 'inverse_variance'</li>
+<li>TFORM6  = 'D'</li>
+</ul><h2>How we do it</h2>
+
+<ul>
+<li>Parse for the FITS header</li>
+<li>Read the above key/values</li>
+<li>Unpack the binary data using jDataView</li>
+</ul><h2>TODO:</h2>
+
+<p>Support the follow data types that appear in FITS binary tables:</p>
+
+<table>
+<tr>
+<td>FITS format code</td>
+        <td>Description</td>
+        <td>Number of 8-bit bytes</td>
+    </tr>
+<tr>
+<td>L*</td>
+        <td>logical (Boolean)</td>
+        <td>1</td>
+    </tr>
+<tr>
+<td>X*</td>
+        <td>bit</td>
+        <td>*</td>
+    </tr>
+<tr>
+<td>B</td>
+        <td>Unsigned byte</td>
+        <td>1</td>
+    </tr>
+<tr>
+<td>I</td>
+        <td>16-bit integer</td>
+        <td>2</td>
+    </tr>
+<tr>
+<td>J</td>
+        <td>32-bit integer</td>
+        <td>4</td>
+    </tr>
+<tr>
+<td>K*</td>
+        <td>64-bit integer</td>
+        <td>4</td>
+    </tr>
+<tr>
+<td>A</td>
+        <td>character</td>
+        <td>1</td>
+    </tr>
+<tr>
+<td>E</td>
+        <td>single precision floating point</td>
+        <td>4</td>
+    </tr>
+<tr>
+<td>D</td>
+        <td>double precision floating point</td>
+        <td>8</td>
+    </tr>
+<tr>
+<td>C*</td>
+        <td>single precision complex</td>
+        <td>8</td>
+    </tr>
+<tr>
+<td>M*</td>
+        <td>double precision complex</td>
+        <td>16</td>
+    </tr>
+<tr>
+<td>P*</td>
+        <td>array descriptor</td>
+        <td>8</td>
+    </tr>
+</table><p>* Not yet implemented or not yet tested</p>
+
+<h2>References</h2>
+
+<p><a href="http://packages.python.org/pyfits/users_guide/users_table.html">http://packages.python.org/pyfits/users_guide/users_table.html</a></p>
+
+<p>BAM!</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">FitsTableJS maintained by <a href="https://github.com/kapadia">kapadia</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
