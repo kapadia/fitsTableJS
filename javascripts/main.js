@@ -16,7 +16,7 @@ $(document).ready(function () {
     columns += "</tr>";
     $("#example-table").append(columns);
 
-    for (j = 0; j < ft.rows; j += 1) {
+    for (j = 0; j < 100; j += 1) {
       row = "<td>";
       for (i = 0; i < ft.columns; i += 1) {
         columnName = ft.columnNames[i];
