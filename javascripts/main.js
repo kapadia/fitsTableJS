@@ -17,13 +17,13 @@ $(document).ready(function () {
     $("#example-table").append(columns);
 
     for (j = 0; j < 100; j += 1) {
-      row = "<td>";
+      row = "<tr><td>";
       for (i = 0; i < ft.columns; i += 1) {
         columnName = ft.columnNames[i];
         field = ft.data[columnName][j];
         row += "<td>" + field + "</td>";
       }
-      row += "</td>"
+      row += "</td></tr>"
       $("#example-table tr:last").after(row);
     }
   };
