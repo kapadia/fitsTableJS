@@ -39,12 +39,12 @@ Support the follow data types that appear in FITS binary tables:
         <td>Number of 8-bit bytes</td>
     </tr>
     <tr>
-        <td>L\*</td>
+        <td>L*</td>
         <td>logical (Boolean)</td>
         <td>1</td>
     </tr>
     <tr>
-        <td>X\*</td>
+        <td>X*</td>
         <td>bit</td>
         <td>*</td>
     </tr>
@@ -64,7 +64,7 @@ Support the follow data types that appear in FITS binary tables:
         <td>4</td>
     </tr>
     <tr>
-        <td>K\*</td>
+        <td>K*</td>
         <td>64-bit integer</td>
         <td>4</td>
     </tr>
@@ -84,17 +84,17 @@ Support the follow data types that appear in FITS binary tables:
         <td>8</td>
     </tr>
     <tr>
-        <td>C\*</td>
+        <td>C*</td>
         <td>single precision complex</td>
         <td>8</td>
     </tr>
     <tr>
-        <td>M\*</td>
+        <td>M*</td>
         <td>double precision complex</td>
         <td>16</td>
     </tr>
     <tr>
-        <td>P\*</td>
+        <td>P*</td>
         <td>array descriptor</td>
         <td>8</td>
     </tr>
