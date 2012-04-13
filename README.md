@@ -6,6 +6,7 @@ Yes, a JavaScript library for reading FITS Binary Tables :)
 Dependencies
 ------------
 This library is dependent upon jDataView
+
 * https://github.com/vjeux/jDataView
 
 Installation
@@ -17,10 +18,10 @@ Include the dependent library and fitsTableJS
 
 Usage
 -----
-Using an XMLHttpRequest, retrieve an array buffer or binary string of the binary FITS file.
+Using an XMLHttpRequest, retrieve an array buffer or binary string of the FITS file.
 
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', "url/to/astro.png", true);
+    xhr.open('GET', "url/to/shazaam.fits", true);
     xhr.responseType = 'arraybuffer';
     xhr.onload = function(e) {
         var ft = new FitsTable(xhr.response);
