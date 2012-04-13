@@ -114,7 +114,7 @@ Support the follow data types that appear in FITS binary tables:
         <td>4</td>
     </tr>
     <tr>
-        <td>A*</td>
+        <td>A</td>
         <td>character</td>
         <td>1</td>
     </tr>
