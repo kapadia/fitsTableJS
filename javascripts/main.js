@@ -12,7 +12,7 @@ $(document).ready(function () {
 
     columns = "<tr>"
     for (i = 0; i < ft.columns; i += 1)
-      columns += "<td><b>" + ft.columnNames[i] + "</b></td>";
+      columns += "<td style='font-weight:bold'>" + ft.columnNames[i] + "</td>";
     columns += "</tr>";
     $("#example-table").append(columns);
 
