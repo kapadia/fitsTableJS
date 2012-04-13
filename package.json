@@ -1,19 +1,21 @@
 {
- "name": "",
- "version": "0.0.1",
- "description": "",
- "keywords": ["astronomy", "shazaam"],
- "homepage": "astrojs.org",
- "author": {
- "name": "Amit Kapadia",
- "email": "amit@zooniverse.org",
- "url": "https://www.zooniverse.org/"
- },
- "files": ["lib/.js"],
- "main": "lib/.js",
- "repository": {
- "type": "git",
- "url": "git@github.com:kapadia/.git"
- },
- }
-
+  "name": "fits-table-js",
+  "version": "0.0.1",
+  "description": "Read FITS Binary Tables in JavaScript",
+  "keywords": ["astronomy", "fits", "table", "shazaam"],
+  "homepage": "https://www.zooniverse.org/",
+  "author": {
+    "name": "Amit Kapadia",
+    "email": "amit@zooniverse.org",
+    "url": "https://www.zooniverse.org/"
+  },
+  "files": ["lib/fitsTable.js"],
+  "main": "lib/fitsTable.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:kapadia/.git"
+  },
+  "dependencies": {
+    "jDataView": "1.0.2"
+  }
+}
