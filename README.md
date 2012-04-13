@@ -35,17 +35,18 @@ Using an XMLHttpRequest, retrieve an array buffer or binary string of the FITS f
     ft.readColumns();
 
     // Access the data
-    console.log(ft.tableData);
+    console.log(ft.data);
 
     // Column names are recorded as an array
     console.log(ft.columnNames);
 
-    // Number of rows
-    console.log(ft.numberOfRows);
+    // Number of rows and columns
+    console.log(ft.rows);
+    console.log(ft.columns);
 
     // You can read a single row at a time and access the data
     ft.readColumn();
-    console.log(ft.tableData);
+    console.log(ft.data);
 
 Notes for me
 ------------
@@ -143,7 +144,7 @@ Support the follow data types that appear in FITS binary tables:
         <td>8</td>
     </tr>
 </table>
-\* Work in progress
+\* Not yet implemented or not yet tested
 
 References
 ----------
