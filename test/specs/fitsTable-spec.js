@@ -4,7 +4,6 @@ describe("fitsTable", function() {
 
   beforeEach(function() {
     var decodedData = window.atob(fits_binary_table);
-
     ft = new FitsTable(decodedData);
   });
   
