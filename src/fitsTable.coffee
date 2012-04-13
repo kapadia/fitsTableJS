@@ -45,13 +45,12 @@ class FitsTable
       tform = "TFORM#{i}"
       switch @header[tform]
         when 'L'  # logical (Boolean)
-          @data[columnName].push(@view.getUint8())
-          console.warn "This data format has not been tested"
+          value = if @view.getInt8() is 84 then true else false
+          @data[columnName].push(value)
         when 'X'  # bit
           throw "Data type not yet implemented"
         when 'B'  # Unsigned byte
           @data[columnName].push(@view.getUint8())
-          console.warn "This data format has not been tested"
         when 'I'  # 16-bit integer
           @data[columnName].push(@view.getInt16())
         when 'J'  # 32-bit integer
@@ -69,9 +68,13 @@ class FitsTable
         when 'D'  # double precision floating point
           @data[columnName].push(@view.getFloat64())
         when 'C'  # single precision complex
-          throw "Data type not yet implemented"
+          real = @view.getFloat32()
+          complex = @view.getFloat32()
+          @data[columnName].push([real, complex])
         when 'M'  # double precision complex
-          throw "Data type not yet implemented"
+          real = @view.getFloat64()
+          complex = @view.getFloat64()
+          @data[columnName].push([real, complex])
         when 'P'  # array descriptor
           throw "Data type not yet implemented"
     @rowsToRead -= 1
