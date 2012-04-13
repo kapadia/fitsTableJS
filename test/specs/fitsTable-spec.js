@@ -10,8 +10,8 @@ describe("fitsTable", function() {
   it("can read column names and data type from test data", function() {
     var i, keyType, keyForm, types, forms;
 
-    types = ['boolean', 'unsigned_byte', 'integer_16', 'integer_32', 'float_single', 'float_double', 'complex_single', 'complex_double'];
-    forms = ['L', 'B', 'I', 'J', 'E', 'D', 'C', 'M'];
+    types = ['boolean', 'unsigned_byte', 'integer_16', 'integer_32', 'character', 'float_single', 'float_double', 'complex_single', 'complex_double'];
+    forms = ['L', 'B', 'I', 'J', 'A', 'E', 'D', 'C', 'M'];
 
     ft.readHeader();
     for (i = 1; i <= ft.columns; i += 1) {
@@ -32,6 +32,7 @@ describe("fitsTable", function() {
     unsignedByte  = ft.data['unsigned_byte'];
     int16         = ft.data['integer_16'];
     int32         = ft.data['integer_32'];
+    character     = ft.data['character'];
     floatSingle   = ft.data['float_single'];
     floatDouble   = ft.data['float_double'];
     complexSingle = ft.data['complex_single'];
@@ -56,6 +57,11 @@ describe("fitsTable", function() {
     expect(int32[1]).toEqual(-1258594759);
     expect(int32[2]).toEqual(0);
     expect(int32[3]).toEqual(2147483647);
+
+    expect(character[0]).toMatch("NGC what what");
+    expect(character[1]).toMatch("Messier messy catalog");
+    expect(character[2]).toMatch("long redundant name for an object");
+    expect(character[3]).toMatch("SDSS J011813.23-005420.7");
 
     expect(floatSingle[0]).toBeCloseTo(0.52765727, precision);
     expect(floatSingle[1]).toBeCloseTo(0.49855918, precision);

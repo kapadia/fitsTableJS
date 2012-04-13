@@ -43,7 +43,7 @@ class FitsTable
     for i in [1..@columns]
       columnName = @columnNames[i-1]
       tform = "TFORM#{i}"
-      switch @header[tform]
+      switch @header[tform].match(/[A-Z]/)[0]
         when 'L'  # logical (Boolean)
           value = if @view.getInt8() is 84 then true else false
           @data[columnName].push(value)
@@ -62,7 +62,8 @@ class FitsTable
           @data[columnName].push(value)
           console.warn "This data format has not been tested"
         when 'A'  # character
-          @data[columnName].push(@view.getChar())
+          length = parseInt(@header[tform].match(/(\d*)A/)[1])
+          @data[columnName].push(@view.getString(length))
         when 'E'  # single precision floating point
           @data[columnName].push(@view.getFloat32())
         when 'D'  # double precision floating point
