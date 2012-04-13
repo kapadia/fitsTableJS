@@ -31,32 +31,158 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>Welcome to GitHub Pages.</h3>
+        <h1>fitsTableJS</h1>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>Yes, a JavaScript library for reading FITS Binary Tables :)</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<h2>Dependencies</h2>
+
+<p>This library is dependent upon jDataView</p>
+
+<ul>
+<li><a href="https://github.com/vjeux/jDataView">https://github.com/vjeux/jDataView</a></li>
+</ul><h2>Installation</h2>
+
+<p>Include the dependent library and fitsTableJS</p>
+
+<pre><code>&lt;script src="path/to/jdataview.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+&lt;script src="path/to/fitsTable.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<h2>Usage</h2>
 
-<h3>Designer Templates</h3>
+<p>Using an XMLHttpRequest, retrieve an array buffer or binary string of the FITS file.</p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<pre><code>var xhr = new XMLHttpRequest();
+xhr.open('GET', "url/to/shazaam.fits", true);
+xhr.responseType = 'arraybuffer';
+xhr.onload = function(e) {
+    var ft = new FitsTable(xhr.response);
+};
+xhr.send();
 
-<h3>Rather Drive Stick?</h3>
+// The header must be read first
+ft.readHeader();
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+// Then we may read the columns
+ft.readColumns();
 
-<h3>Authors and Contributors</h3>
+// Access the data
+console.log(ft.data);
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+// Column names are recorded as an array
+console.log(ft.columnNames);
 
-<h3>Support or Contact</h3>
+// Number of rows and columns
+console.log(ft.rows);
+console.log(ft.columns);
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact support@github.com and we’ll help you sort it out.</p>
+// You can read a single row at a time and access the data
+ft.readColumn();
+console.log(ft.data);
+</code></pre>
+
+<h2>Notes for me</h2>
+
+<p>These are the fields that describe the columns and data format in the test data.</p>
+
+<ul>
+<li>TTYPE1  = 'flux    '</li>
+<li>TFORM1  = 'D       '</li>
+<li>TTYPE2  = 'best_fit'</li>
+<li>TFORM2  = 'D       '</li>
+<li>TTYPE3  = 'wavelength'</li>
+<li>TFORM3  = 'D       '</li>
+<li>TTYPE4  = 'and_mask'</li>
+<li>TFORM4  = 'J       '</li>
+<li>TTYPE5  = 'or_mask '</li>
+<li>TFORM5  = 'J       '</li>
+<li>TTYPE6  = 'inverse_variance'</li>
+<li>TFORM6  = 'D'</li>
+</ul><h2>How we do it</h2>
+
+<ul>
+<li>Parse for the FITS header</li>
+<li>Read the above key/values</li>
+<li>Unpack the binary data using jDataView</li>
+</ul><h2>TODO:</h2>
+
+<p>Support the follow data types that appear in FITS binary tables:</p>
+
+<table>
+<tr>
+<td>FITS format code</td>
+        <td>Description</td>
+        <td>Number of 8-bit bytes</td>
+    </tr>
+<tr>
+<td>L*</td>
+        <td>logical (Boolean)</td>
+        <td>1</td>
+    </tr>
+<tr>
+<td>X*</td>
+        <td>bit</td>
+        <td>*</td>
+    </tr>
+<tr>
+<td>B</td>
+        <td>Unsigned byte</td>
+        <td>1</td>
+    </tr>
+<tr>
+<td>I</td>
+        <td>16-bit integer</td>
+        <td>2</td>
+    </tr>
+<tr>
+<td>J</td>
+        <td>32-bit integer</td>
+        <td>4</td>
+    </tr>
+<tr>
+<td>K*</td>
+        <td>64-bit integer</td>
+        <td>4</td>
+    </tr>
+<tr>
+<td>A</td>
+        <td>character</td>
+        <td>1</td>
+    </tr>
+<tr>
+<td>E</td>
+        <td>single precision floating point</td>
+        <td>4</td>
+    </tr>
+<tr>
+<td>D</td>
+        <td>double precision floating point</td>
+        <td>8</td>
+    </tr>
+<tr>
+<td>C*</td>
+        <td>single precision complex</td>
+        <td>8</td>
+    </tr>
+<tr>
+<td>M*</td>
+        <td>double precision complex</td>
+        <td>16</td>
+    </tr>
+<tr>
+<td>P*</td>
+        <td>array descriptor</td>
+        <td>8</td>
+    </tr>
+</table><p>* Not yet implemented or not yet tested</p>
+
+<h2>References</h2>
+
+<p><a href="http://packages.python.org/pyfits/users_guide/users_table.html">http://packages.python.org/pyfits/users_guide/users_table.html</a></p>
+
+<p>BAM!</p>
+>>>>>>> fa54f87755812aa8d716bbd35f06397ff3079cc1
       </section>
     </div>
 
