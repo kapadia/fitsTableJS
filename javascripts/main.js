@@ -26,6 +26,41 @@ $(document).ready(function () {
       row += "</tr>"
       $("#example-table tr:last").after(row);
     }
+    
+    // Using Flot
+    var options;
+    var dataFit   = [];
+    var dataFlux  = [];
+
+    for (i = 0; i < ft.rows; i += 1) {
+      dataFlux.push( [ ft.data['wavelength'][i], ft.data['flux'][i] ] );
+      dataFit.push( [ ft.data['wavelength'][i], ft.data['best_fit'][i] ] );
+    }
+
+    $("#example-table").after("<div id='graph' style='width:600px;height:300px'></div>");
+
+    options = {
+      xaxis: {
+        min: Math.min.apply(Math, ft.data['wavelength']),
+        max: Math.max.apply(Math, ft.data['wavelength'])
+      },
+      yaxis: {
+        // min: Math.min.apply(Math, ft.data['flux']),
+        // max: Math.max.apply(Math, ft.data['flux'])
+        min: -5,
+        max: 7
+      },
+      xaxes: [{
+        axisLabel: "Wavelength (angstroms)"
+      }],
+      yaxes: [{
+        axisLabel: "Flux (1E-17 erg/cm^2/s/Ang)"
+      }]
+    }
+
+    $.plot($("#graph"), [dataFlux, dataFit], options);
+
   };
   xhr.send();
+
 });
