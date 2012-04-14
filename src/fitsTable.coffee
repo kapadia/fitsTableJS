@@ -56,11 +56,14 @@ class FitsTable
         when 'J'  # 32-bit integer
           @data[columnName].push(@view.getInt32())
         when 'K'  # 64-bit integer
-          highByte = @view.getInt32()
-          lowByte = @view.getInt32()
-          value = (highByte << 24) + lowByte
+          highByte = Math.abs @view.getInt32()
+          lowByte = Math.abs @view.getInt32()
+          mod = highByte % 10
+          factor = if mod then -1 else 1
+          highByte -= mod
+          value = factor * ((highByte << 32) | lowByte)
           @data[columnName].push(value)
-          console.warn "This data format has not been tested"
+          console.warn "Something funky happens here when dealing with 64 bit integers.  Be wary!!!"
         when 'A'  # character
           length = parseInt(@header[tform].match(/(\d*)A/)[1])
           @data[columnName].push(@view.getString(length))

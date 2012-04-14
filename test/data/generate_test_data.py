@@ -15,7 +15,7 @@ def create_fits_table():
     unsigned_byte_array     = numpy.array([128, 110, 0, 126], dtype=numpy.int8)
     integer_16_array        = numpy.array([-32768, -16010, 0, 32767], dtype=numpy.int16)
     integer_32_array        = numpy.array([-2147483648, -1258594759, 0, 2147483647], dtype=numpy.int32)
-    # integer_64_array        = numpy.array([-9223372036854775808, -81122610257436647070, 9223372036854775807], dtype=numpy.int64)
+    integer_64_array        = numpy.array([-2147483647, -1258594759, 0, 2147483647], dtype=numpy.int64)
     character_array         = numpy.array(['NGC what what', 'Messier messy catalog', 'long redundant name for an object', 'SDSS J011813.23-005420.7'])
     float_single_array      = numpy.array([0.52765727,  0.49855918,  0.18345617,  0.96718222], dtype=numpy.float32)
     float_double_array      = numpy.array([0.1591198764073356,  0.52608471328096251,  0.46402682308528254,  0.21657682117710586], dtype=numpy.float64)
@@ -28,7 +28,7 @@ def create_fits_table():
     col3    = pyfits.Column(name='unsigned_byte', format='B', array=unsigned_byte_array)
     col4    = pyfits.Column(name='integer_16', format='I', array=integer_16_array)
     col5    = pyfits.Column(name='integer_32', format='J', array=integer_32_array)
-    # col6    = pyfits.Column(name='integer_64', format='K', array=integer_64_array)
+    col6    = pyfits.Column(name='integer_64', format='K', array=integer_64_array)
     col7    = pyfits.Column(name='character', format='33A', array=character_array)
     col8    = pyfits.Column(name='float_single', format='E', array=float_single_array)
     col9    = pyfits.Column(name='float_double', format='D', array=float_double_array)
@@ -42,7 +42,7 @@ def create_fits_table():
         col3,
         col4,
         col5,
-        # col6,
+        col6,
         col7,
         col8,
         col9,

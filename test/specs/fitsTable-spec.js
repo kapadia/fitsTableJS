@@ -10,8 +10,8 @@ describe("fitsTable", function() {
   it("can read column names and data type from test data", function() {
     var i, keyType, keyForm, types, forms;
 
-    types = ['boolean', 'unsigned_byte', 'integer_16', 'integer_32', 'character', 'float_single', 'float_double', 'complex_single', 'complex_double'];
-    forms = ['L', 'B', 'I', 'J', 'A', 'E', 'D', 'C', 'M'];
+    types = ['boolean', 'unsigned_byte', 'integer_16', 'integer_32', 'integer_64', 'character', 'float_single', 'float_double', 'complex_single', 'complex_double'];
+    forms = ['L', 'B', 'I', 'J', 'K', 'A', 'E', 'D', 'C', 'M'];
 
     ft.readHeader();
     for (i = 1; i <= ft.columns; i += 1) {
@@ -32,6 +32,7 @@ describe("fitsTable", function() {
     unsignedByte  = ft.data['unsigned_byte'];
     int16         = ft.data['integer_16'];
     int32         = ft.data['integer_32'];
+    int64         = ft.data['integer_64'];
     character     = ft.data['character'];
     floatSingle   = ft.data['float_single'];
     floatDouble   = ft.data['float_double'];
@@ -57,6 +58,11 @@ describe("fitsTable", function() {
     expect(int32[1]).toEqual(-1258594759);
     expect(int32[2]).toEqual(0);
     expect(int32[3]).toEqual(2147483647);
+
+    expect(int64[0]).toEqual(-2147483647);
+    expect(int64[1]).toEqual(-1258594759);
+    expect(int64[2]).toEqual(0);
+    expect(int64[3]).toEqual(2147483647);
 
     expect(character[0]).toMatch("NGC what what");
     expect(character[1]).toMatch("Messier messy catalog");
